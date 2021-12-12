@@ -5,7 +5,12 @@ server = Flask(__name__)
 
 @server.route("/")
 def hello():
-    return "Hello World!"
+    return "Ho ho ho"
+
+
+@server.route("/day1")
+def day1():
+    return "Ho ho ho day1"
 
 
 if __name__ == "__main__":
