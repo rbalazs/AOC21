@@ -1,0 +1,26 @@
+version: '3.3'
+
+networks:
+  traefik:
+    external: true
+
+services:
+  server:
+    networks:
+      - traefik
+    build:
+      context: ./.docker/py
+    command: python /app/src/server.py
+    working_dir: /app
+    environment:
+      - FLASK_ENV=development
+    volumes:
+      - .:/app
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      - traefik.port=80
+      - traefik.http.routers.aoc.service=aoc
+      - traefik.http.routers.aoc.rule=Host(`aoc.localhost`)
+      - traefik.http.services.aoc.loadbalancer.server.port=80
+
